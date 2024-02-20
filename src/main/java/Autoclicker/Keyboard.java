@@ -2,26 +2,27 @@ package Autoclicker;
 
 
 
-import java.awt.*;
-//import java.util.concurrent.ScheduledExecutorService;
-//import java.util.concurrent.TimeUnit.*;
-//import java.util.concurrent.*;
+import java.awt.Robot;
+import java.awt.AWTException;
 
 public class Keyboard {
-    private static Robot robo= null;
 
 
-    public static void pressKey(int keyCode, int delay) throws AWTException, InterruptedException{
+    public static void pressKey(int keyCode, int delay) throws AWTException, InterruptedException {
+        pressKey(keyCode, delay,0);
+    }
 
-        robo= new Robot();
+    public static void pressKey(int keyCode) throws AWTException, InterruptedException {
+        pressKey(keyCode, 40);
+    }
+
+    public static void pressKey(int keyCode, int delay, int delay1) throws AWTException, InterruptedException {
+        Robot robo = new Robot();
         robo.waitForIdle();
         robo.keyPress(keyCode);
         Thread.sleep(delay);
         robo.keyRelease(keyCode);
-    }
-
-    public static void pressKey(int keyCode) throws AWTException, InterruptedException{
-        pressKey(keyCode, 40);
+        Thread.sleep(delay1);
     }
 
    

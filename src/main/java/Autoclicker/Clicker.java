@@ -5,28 +5,17 @@ import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.AWTException;
 
-
-
-public class Clicker implements NativeKeyListener {
-	    int howLong=(int)(10*1000);
+public class Clicker implements NativeKeyListener
+{
+	//howLong is cast to int so that when I add in json parsing it will handle decimals better
+	int howLong=(int)(10.0*1000);
+	//it's named that as some fucker on stack overflow didn't inform me of a timer class so I wasted a day trying to make it
     Timer time= new Timer("fuck you stack overflow");
-
-
     TimerTask task= null;
-
-	/*public void nativeKeyPressed(NativeKeyEvent e) {
-		//System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
-
-		if (e.getKeyCode() == NativeKeyEvent.VC_BACKSPACE) {
-			System.out.print("autoclicker ended");
-			System.exit(1);
-        	}
-	}*/
 
 	public void nativeKeyReleased(NativeKeyEvent e) {
 		//System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
@@ -35,51 +24,47 @@ public class Clicker implements NativeKeyListener {
 		if (e.getKeyCode() == NativeKeyEvent.VC_BACKSPACE) {
 			System.out.print("Auto Clicker ended");
 			System.exit(1);
-        	}
+		}
 	}
-
 
 	public void isTimerTyped(NativeKeyEvent e,String l,boolean b){
 		if(NativeKeyEvent.getKeyText(e.getKeyCode()).equals(l)){
 			System.out.print(l);
-        time.cancel();
-        time= new Timer("replaced");
-		if(b){
-			task = new TimerTask() {
-
-        @Override
-        public void run() {
+        	time.cancel();
+        	time= new Timer("replaced");
+			if(b){
+				task = new TimerTask() {
+        			@Override
+        			public void run() {
             
-            try {
-                Keyboard.pressKey(KeyEvent.VK_ESCAPE,400);
-				Keyboard.pressKey(KeyEvent.VK_DOWN);
-				Keyboard.pressKey(KeyEvent.VK_Z,400);
-				Keyboard.pressKey(KeyEvent.VK_DOWN);
-				Keyboard.pressKey(KeyEvent.VK_Z);
+            			try {
+							//replace this for the actual script
+							//TODO make this a separate method in a future class
+                			Keyboard.pressKey(KeyEvent.VK_ESCAPE,400-40);
+							Keyboard.pressKey(KeyEvent.VK_DOWN);
+							Keyboard.pressKey(KeyEvent.VK_Z,400-40);
+							Keyboard.pressKey(KeyEvent.VK_DOWN);
+							Keyboard.pressKey(KeyEvent.VK_Z);
 
-                System.out.println("ping");
-            } catch (AWTException | InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                System.out.println("AWTException error");
-            }
-        
-        
-    }};
+        	        		System.out.println("ping");
+        	    		} catch (AWTException | InterruptedException e) {
+        	        		// idk what to put here it only works in a try catch
 
-        
-		}else{
-			task= new TimerTask() {
+        		        	System.out.println("AWTException error");
+        	    		}
+					}
+				};
 
-        @Override
-        public void run() {
 
-            System.out.println("pong");
-        
-    }};
-
-		}
-		time.scheduleAtFixedRate(task, howLong/2, howLong);
+			}else{
+				task= new TimerTask() {
+        			@Override
+        			public void run() {
+        	    	System.out.println("pong");
+    				}
+				};
+			}
+			time.scheduleAtFixedRate(task, howLong/2, howLong);
 		}
 	}
 
