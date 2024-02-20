@@ -1,3 +1,6 @@
+download here https://github.com/R8Spike/Hotkey-Padoga/releases
+
+
 A java based hotkey program made initally to automate text scroll in bpohc 
 
 Build instructions for windows (idk other platforms sorry)
