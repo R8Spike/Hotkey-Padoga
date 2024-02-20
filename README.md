@@ -14,6 +14,7 @@ find the shadded jar file made by maven
 
 
 run instructions
+
 if downloaded a release please read the readme contained in that release 
 if built yourself
 open cmd
