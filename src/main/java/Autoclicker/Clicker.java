@@ -4,7 +4,8 @@ import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
-import java.awt.event.KeyEvent;
+
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.AWTException;
@@ -38,21 +39,18 @@ public class Clicker implements NativeKeyListener
         			public void run() {
             
             			try {
-							//replace this for the actual script
-							//TODO make this a separate method in a future class
-                			Keyboard.pressKey(KeyEvent.VK_ESCAPE,400-40);
-							Keyboard.pressKey(KeyEvent.VK_DOWN);
-							Keyboard.pressKey(KeyEvent.VK_Z,400-40);
-							Keyboard.pressKey(KeyEvent.VK_DOWN);
-							Keyboard.pressKey(KeyEvent.VK_Z);
+                            //if you want to hardcore the inputs instead of relying on the config replace this
+                            InputParser.doInputs();
 
         	        		System.out.println("ping");
         	    		} catch (AWTException | InterruptedException e) {
         	        		// idk what to put here it only works in a try catch
 
         		        	System.out.println("AWTException error");
-        	    		}
-					}
+        	    		} catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
 				};
 
 
